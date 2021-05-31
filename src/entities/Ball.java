@@ -1,24 +1,12 @@
-package by.epam.shchemelev;
+package entities;
 
-import java.awt.*;
+import by.epam.shchemelev.Color;
+
 import java.util.Objects;
 
 public class Ball {
     private Color color;
     private float weight;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Ball ball = (Ball) o;
-        return Float.compare(ball.weight, weight) == 0 && Objects.equals(color, ball.color);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(color, weight);
-    }
 
     public Color getColor() {
         return color;
@@ -48,4 +36,18 @@ public class Ball {
                 ", weight=" + weight +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ball ball = (Ball) o;
+        return Float.compare(ball.weight, weight) == 0 && Objects.equals(color, ball.color);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, weight);
+    }
+
 }
