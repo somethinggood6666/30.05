@@ -27,6 +27,9 @@ public class Basket {
         balls.remove(index);
     }
 
+    public Basket() {
+    }
+
     public List<Ball> getBalls() {
         return balls;
     }

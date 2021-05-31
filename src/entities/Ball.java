@@ -2,9 +2,10 @@ package entities;
 
 import by.epam.shchemelev.Color;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Ball {
+public class Ball implements Serializable {
     private Color color;
     private float weight;
 
@@ -27,6 +28,9 @@ public class Ball {
     public Ball(Color color, float weight) {
         this.color = color;
         this.weight = weight;
+    }
+
+    public Ball() {
     }
 
     @Override
