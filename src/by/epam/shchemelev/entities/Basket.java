@@ -1,31 +1,12 @@
 package by.epam.shchemelev.entities;
 
-import by.epam.shchemelev.Color;
-import by.epam.shchemelev.exceptions.OutOfWeightException;
-import by.epam.shchemelev.exceptions.TooMuchBallsException;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Basket {
+public class Basket implements Serializable {
     private List<Ball> balls = new ArrayList<>();
-    private final int BALLS_LIMIT = 30;
-    private final float WEIGHT_LIMIT = 20f;
-
-    public void addBall(Ball ball) throws OutOfWeightException, TooMuchBallsException {
-        if (calculateBallsWeight() + ball.getWeight() > WEIGHT_LIMIT){
-            throw new OutOfWeightException("The allowed weight of balls in the basket is exceeded");
-        }
-        if (balls.size() + 1 > BALLS_LIMIT){
-            throw new TooMuchBallsException("The allowed amount of balls in the basket is exceeded");
-        }
-        balls.add(ball);
-    }
-
-    public void removeBall(int index){
-        balls.remove(index);
-    }
 
     public Basket() {
     }
@@ -34,26 +15,32 @@ public class Basket {
         return balls;
     }
 
-    public int calculateBallsAmountByColor(Color color){
-        int result = 0;
-        for (Ball ball: balls){
-            if (ball.getColor() == color){
-                result++;
-            }
-        }
-        return result;
+    public Ball getBallByIndex(int index) {
+        return balls.get(index);
     }
 
-    public float calculateBallsWeight(){
-        float weight = 0;
-        for(Ball ball: balls){
-            weight += ball.getWeight();
-        }
-        return weight;
+    public void setBalls(List<Ball> balls) {
+        this.balls = balls;
     }
 
-    public int calculateBallsAmount(){
-        return balls.size();
+    public void setBallByIndex(int index, Ball ball) {
+        balls.set(index, ball);
+    }
+
+    @Override
+    public String toString() {
+        if (balls.isEmpty()){
+            return "Basket is empty";
+        }
+        StringBuilder result = new StringBuilder("Balls in this basket:\n");
+        for (int i = 0; i < balls.size(); i++) {
+            result.append(i).append(": Color - ")
+                    .append(balls.get(i).getColor())
+                    .append(", Weight - ")
+                    .append(balls.get(i).getWeight())
+                    .append("\n");
+        }
+        return result.toString();
     }
 
     @Override
@@ -67,19 +54,5 @@ public class Basket {
     @Override
     public int hashCode() {
         return Objects.hash(balls);
-    }
-
-    @Override
-    public String toString() {
-        if (balls.isEmpty()){
-            return "Basket is empty";
-        }
-        StringBuilder result = new StringBuilder("Balls in this basket:\n");
-        for (int i = 0; i < balls.size(); i++) {
-            result.append(i).append(": Color - ").append(balls.get(i).getColor()).append(", Weight - ").append(balls.get(i).getWeight()).append("\n");
-        }
-        result.append("Total weight of the balls: ").append(calculateBallsWeight()).append("\n");
-        result.append("Total balls amount: ").append(calculateBallsAmount()).append("\n");
-        return result.toString();
     }
 }

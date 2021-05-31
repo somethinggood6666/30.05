@@ -10,7 +10,7 @@ public class InputTools {
             if (isIntegerNumberInRange(value, rangeFrom, rangeTo)){
                 return Integer.parseInt(value);
             } else {
-                System.out.println("Число введено в неправильном формате или не соответствует нужному диапазону чисел, попробуйте снова");
+                System.out.println("The number entered in the wrong format or does not match the desired range of numbers, please try again");
             }
         }
     }
@@ -22,7 +22,7 @@ public class InputTools {
             if (isFloatNumber(value)){
                 return Float.parseFloat(value);
             } else {
-                System.out.println("Число введено в неправильном формате, попробуйте снова");
+                System.out.println("The number is entered in the wrong format, please try again");
             }
         }
     }

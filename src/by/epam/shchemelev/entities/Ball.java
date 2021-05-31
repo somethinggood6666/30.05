@@ -1,6 +1,6 @@
 package by.epam.shchemelev.entities;
 
-import by.epam.shchemelev.Color;
+import by.epam.shchemelev.enums.Color;
 
 import java.io.Serializable;
 import java.util.Objects;

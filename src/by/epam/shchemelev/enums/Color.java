@@ -1,4 +1,4 @@
-package by.epam.shchemelev;
+package by.epam.shchemelev.enums;
 
 public enum Color {
     BLUE,
