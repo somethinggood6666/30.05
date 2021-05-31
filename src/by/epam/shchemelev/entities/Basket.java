@@ -14,7 +14,7 @@ public class Basket {
     private final float WEIGHT_LIMIT = 20f;
 
     public void addBall(Ball ball) throws OutOfWeightException, TooMuchBallsException {
-        if (getBallsWeight() + ball.getWeight() > WEIGHT_LIMIT){
+        if (calculateBallsWeight() + ball.getWeight() > WEIGHT_LIMIT){
             throw new OutOfWeightException("The allowed weight of balls in the basket is exceeded");
         }
         if (balls.size() + 1 > BALLS_LIMIT){
@@ -34,7 +34,7 @@ public class Basket {
         return balls;
     }
 
-    public int getBallsAmountByColor(Color color){
+    public int calculateBallsAmountByColor(Color color){
         int result = 0;
         for (Ball ball: balls){
             if (ball.getColor() == color){
@@ -44,7 +44,7 @@ public class Basket {
         return result;
     }
 
-    public float getBallsWeight(){
+    public float calculateBallsWeight(){
         float weight = 0;
         for(Ball ball: balls){
             weight += ball.getWeight();
@@ -52,7 +52,7 @@ public class Basket {
         return weight;
     }
 
-    public int getBallsAmount(){
+    public int calculateBallsAmount(){
         return balls.size();
     }
 
@@ -78,8 +78,8 @@ public class Basket {
         for (int i = 0; i < balls.size(); i++) {
             result.append(i).append(": Color - ").append(balls.get(i).getColor()).append(", Weight - ").append(balls.get(i).getWeight()).append("\n");
         }
-        result.append("Total weight of the balls: ").append(getBallsWeight()).append("\n");
-        result.append("Total balls amount: ").append(getBallsAmount()).append("\n");
+        result.append("Total weight of the balls: ").append(calculateBallsWeight()).append("\n");
+        result.append("Total balls amount: ").append(calculateBallsAmount()).append("\n");
         return result.toString();
     }
 }

@@ -44,21 +44,21 @@ public class Main {
         basketValidalityCheck();
         int basketNumber = getBasketNumber();
         System.out.println("Общая масса мячей в " + basketNumber + " корзине:");
-        System.out.println(baskets.get(basketNumber).getBallsWeight() + "\n");
+        System.out.println(baskets.get(basketNumber).calculateBallsWeight() + "\n");
     }
 
     private static void getBlueBallsAmount() {
         basketValidalityCheck();
         int basketNumber = getBasketNumber();
         System.out.println("Количество синих мячей в " + basketNumber + " корзине:");
-        System.out.println(baskets.get(basketNumber).getBallsAmountByColor(Color.BLUE) + "\n");
+        System.out.println(baskets.get(basketNumber).calculateBallsAmountByColor(Color.BLUE) + "\n");
     }
 
     private static void removeBallFromBasket() {
         basketValidalityCheck();
         int basketNumber = getBasketNumber();
         System.out.println("Какой мяч вы бы хотели убрать?");
-        int ballNumber = InputTools.inputIntegerNumberInRange(0, baskets.get(basketNumber).getBallsAmount() - 1);
+        int ballNumber = InputTools.inputIntegerNumberInRange(0, baskets.get(basketNumber).calculateBallsAmount() - 1);
         baskets.get(basketNumber).removeBall(ballNumber);
         System.out.println("Мяч был убран из корзины! \n\n");
     }
