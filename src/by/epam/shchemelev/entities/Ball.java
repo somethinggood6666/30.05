@@ -1,4 +1,4 @@
-package entities;
+package by.epam.shchemelev.entities;
 
 import by.epam.shchemelev.Color;
 

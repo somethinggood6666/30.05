@@ -1,4 +1,4 @@
-package entities;
+package by.epam.shchemelev.entities;
 
 import by.epam.shchemelev.Color;
 import by.epam.shchemelev.exceptions.OutOfWeightException;

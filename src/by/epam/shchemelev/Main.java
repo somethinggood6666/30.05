@@ -4,10 +4,9 @@ import by.epam.shchemelev.exceptions.NoSingleBasketException;
 import by.epam.shchemelev.exceptions.OutOfWeightException;
 import by.epam.shchemelev.exceptions.TooMuchBallsException;
 import by.epam.shchemelev.tools.InputTools;
-import entities.Ball;
-import entities.Basket;
+import by.epam.shchemelev.entities.Ball;
+import by.epam.shchemelev.entities.Basket;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
