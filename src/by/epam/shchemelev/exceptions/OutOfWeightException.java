@@ -1,6 +1,8 @@
 package by.epam.shchemelev.exceptions;
 
-public class OutOfWeightException extends Exception{
+import java.io.Serializable;
+
+public class OutOfWeightException extends Exception implements Serializable {
     public OutOfWeightException() {
         super();
     }

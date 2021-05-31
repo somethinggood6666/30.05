@@ -1,6 +1,8 @@
 package by.epam.shchemelev.exceptions;
 
-public class NoSingleBasketException extends Exception{
+import java.io.Serializable;
+
+public class NoSingleBasketException extends Exception implements Serializable {
     public NoSingleBasketException() {
         super();
     }
