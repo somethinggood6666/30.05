@@ -1,9 +1,7 @@
 package by.epam.shchemelev.runner;
 
 import by.epam.shchemelev.enums.Color;
-import by.epam.shchemelev.exceptions.NoSingleBasketException;
-import by.epam.shchemelev.exceptions.OutOfWeightException;
-import by.epam.shchemelev.exceptions.TooMuchBallsException;
+import by.epam.shchemelev.exceptions.*;
 import by.epam.shchemelev.service.BasketService;
 import by.epam.shchemelev.tools.InputTools;
 import by.epam.shchemelev.entities.Ball;
@@ -26,7 +24,7 @@ public class Main {
             System.out.println("To delete the ball type 3");
             System.out.println("To see basket`s content type 4");
             System.out.println("To know amount of the blue balls type 5");
-            System.out.println("To know total weight of balls if the basket type 5");
+            System.out.println("To know total weight of balls in the basket type 6");
             System.out.println("To exit type 7");
             choice = InputTools.inputIntegerNumberInRange(1, 7);
 
@@ -42,30 +40,51 @@ public class Main {
     }
 
     private static void getBallsWeight() {
-        basketValidalityCheck();
+        requireNotEmptyBasket();
         int basketNumber = getBasketNumber();
         System.out.println("Total weight of balls in the " + basketNumber + " basket is:");
-        System.out.println(BasketService.calculateBallsWeight(baskets.get(basketNumber)) + "\n");
+        try {
+            System.out.println(BasketService.calculateBallsWeight(baskets.get(basketNumber)) + "\n");
+        } catch (BasketDoesntExistsException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void getBlueBallsAmount() {
-        basketValidalityCheck();
+        requireNotEmptyBasket();
         int basketNumber = getBasketNumber();
         System.out.println("The amount of blue balls in the " + basketNumber + " basket is:");
-        System.out.println(BasketService.calculateBallsAmountByColor(baskets.get(basketNumber), Color.BLUE) + "\n");
+        try {
+            System.out.println(BasketService.calculateBallsAmountByColor(baskets.get(basketNumber), Color.BLUE) + "\n");
+        } catch (BasketDoesntExistsException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void removeBallFromBasket() {
-        basketValidalityCheck();
+        requireNotEmptyBasket();
         int basketNumber = getBasketNumber();
+        int ballsAmount = 0;
+        try {
+            ballsAmount = BasketService.calculateBallsAmount(baskets.get(basketNumber)) - 1;
+        } catch (BasketDoesntExistsException e) {
+            e.printStackTrace();
+        }
+        if (ballsAmount == -1){
+            System.out.println("The basket is empty");
+            return;
+        }
         System.out.println("What ball would you like to delete?");
-        int ballsAmount = BasketService.calculateBallsAmount(baskets.get(basketNumber)) - 1;
         int ballNumber = InputTools.inputIntegerNumberInRange(0, ballsAmount);
-        BasketService.removeBall(baskets.get(basketNumber), ballNumber);
+        try {
+            BasketService.removeBall(baskets.get(basketNumber), ballNumber);
+        } catch (BasketDoesntExistsException e) {
+            e.printStackTrace();
+        }
         System.out.println("The ball was successfully deleted! \n\n");
     }
 
-    private static void basketValidalityCheck(){
+    private static void requireNotEmptyBasket(){
         if (baskets.size() == 0){
             try {
                 throw new NoSingleBasketException("There is not a single basket!");
@@ -95,7 +114,7 @@ public class Main {
 
 
     private static void addBallToBasket() {
-        basketValidalityCheck();
+        requireNotEmptyBasket();
         int basketNumber = getBasketNumber();
         System.out.println("Choose the balls`s color");
         Color[] colors = Color.values();
@@ -109,7 +128,11 @@ public class Main {
 
         Ball ball = new Ball(colors[colorIndex], weight);
         try {
-            BasketService.addBall(baskets.get(basketNumber), ball);
+            try {
+                BasketService.addBall(baskets.get(basketNumber), ball);
+            } catch (BallDoesntExistsException | BasketDoesntExistsException e) {
+                e.printStackTrace();
+            }
         } catch (OutOfWeightException | TooMuchBallsException e) {
             e.printStackTrace();
             System.exit(1);

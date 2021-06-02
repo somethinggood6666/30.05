@@ -35,17 +35,14 @@ public class Ball implements Serializable {
 
     @Override
     public String toString() {
-        return "Ball{" +
-                "color=" + color +
-                ", weight=" + weight +
-                '}';
+        return "Ball`s color: " + color + " , ball`s weight: " + weight;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Ball ball = (Ball) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Ball ball = (Ball) object;
         return Float.compare(ball.weight, weight) == 0 && Objects.equals(color, ball.color);
     }
 

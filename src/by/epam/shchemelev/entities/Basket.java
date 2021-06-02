@@ -44,10 +44,10 @@ public class Basket implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Basket basket = (Basket) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Basket basket = (Basket) object;
         return Objects.equals(balls, basket.balls);
     }
 
