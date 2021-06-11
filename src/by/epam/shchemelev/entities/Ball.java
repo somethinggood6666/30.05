@@ -13,12 +13,12 @@ public class Ball implements Serializable {
         return color;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
     public float getWeight() {
         return weight;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public void setWeight(float weight) {
@@ -48,7 +48,11 @@ public class Ball implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(color, weight);
+        int result = 17;
+        result = 37 * result + getColor().hashCode();
+        result = 37 * result + Float.floatToIntBits(getWeight());
+
+        return result;
     }
 
 }

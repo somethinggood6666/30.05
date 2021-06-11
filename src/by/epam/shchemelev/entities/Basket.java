@@ -1,5 +1,7 @@
 package by.epam.shchemelev.entities;
 
+import by.epam.shchemelev.service.BasketService;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +9,29 @@ import java.util.Objects;
 
 public class Basket implements Serializable {
     private List<Ball> balls = new ArrayList<>();
+    private static final int BALLS_LIMIT = 30;
+    private static final float WEIGHT_LIMIT = 20;
+
+    public boolean addBall(Ball ball){
+        if (ball == null){
+            return false;
+        }
+        if (BasketService.calculateBallsWeight(this) + ball.getWeight() >= WEIGHT_LIMIT){
+            return false;
+        }
+        if (this.getBalls().size() + 1 >= BALLS_LIMIT){
+            return false;
+        }
+        return balls.add(ball);
+    }
+
+    public boolean removeBall(int index) {
+        if (index >= balls.size()){
+            return false;
+        }
+        balls.remove(index);
+        return true;
+    }
 
     public Basket() {
     }
@@ -15,16 +40,8 @@ public class Basket implements Serializable {
         return balls;
     }
 
-    public Ball getBallByIndex(int index) {
-        return balls.get(index);
-    }
-
     public void setBalls(List<Ball> balls) {
         this.balls = balls;
-    }
-
-    public void setBallByIndex(int index, Ball ball) {
-        balls.set(index, ball);
     }
 
     @Override
@@ -53,6 +70,11 @@ public class Basket implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(balls);
+        int result = 17;
+        for (Ball ball: balls){
+            result = 37 * result + ball.hashCode();
+        }
+
+        return result;
     }
 }

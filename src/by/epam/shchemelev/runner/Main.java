@@ -43,11 +43,7 @@ public class Main {
         requireNotEmptyBasket();
         int basketNumber = getBasketNumber();
         System.out.println("Total weight of balls in the " + basketNumber + " basket is:");
-        try {
-            System.out.println(BasketService.calculateBallsWeight(baskets.get(basketNumber)) + "\n");
-        } catch (BasketDoesntExistsException e) {
-            e.printStackTrace();
-        }
+        System.out.println(BasketService.calculateBallsWeight(baskets.get(basketNumber)) + "\n");
     }
 
     private static void getBlueBallsAmount() {
@@ -76,10 +72,15 @@ public class Main {
         }
         System.out.println("What ball would you like to delete?");
         int ballNumber = InputTools.inputIntegerNumberInRange(0, ballsAmount);
-        try {
-            BasketService.removeBall(baskets.get(basketNumber), ballNumber);
-        } catch (BasketDoesntExistsException e) {
-            e.printStackTrace();
+        ;
+        if (baskets.get(basketNumber).removeBall(ballNumber)){
+            System.out.println("The ball was successfully removed!\n\n");
+        } else {
+            try {
+                throw new RemovingBallException("Impossible to remove such ball");
+            } catch (RemovingBallException e) {
+                e.printStackTrace();
+            }
         }
         System.out.println("The ball was successfully deleted! \n\n");
     }
@@ -127,17 +128,16 @@ public class Main {
         float weight = InputTools.inputFloatNumber();
 
         Ball ball = new Ball(colors[colorIndex], weight);
-        try {
+        if (baskets.get(basketNumber).addBall(ball)){
+            System.out.println("The ball was successfully added!\n\n");
+        } else {
             try {
-                BasketService.addBall(baskets.get(basketNumber), ball);
-            } catch (BallDoesntExistsException | BasketDoesntExistsException e) {
+                throw new AddingBallException("Impossible to add such ball");
+            } catch (AddingBallException e) {
                 e.printStackTrace();
             }
-        } catch (OutOfWeightException | TooMuchBallsException e) {
-            e.printStackTrace();
-            System.exit(1);
         }
-        System.out.println("The ball was successfully added!\n\n");
+
     }
 
     private static void showBaskets(){
